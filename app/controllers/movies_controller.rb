@@ -20,8 +20,21 @@ class MoviesController < ApplicationController
     #session[:prev_sort]=params[:sort]
     session[:prev_sort] = params[:sort] || session[:prev_sort]
     session[:path] = movies_path
+    session[:prev_ratings] = params[:ratings] || session[:prev_ratings]
     @all_ratings=Movie.get_ratings()
-    @movies = Movie.order(session[:prev_sort])
+    @my_ratings=Array.new
+    if !session[:prev_ratings].nil?
+      session[:prev_ratings].each do |ratng,val|
+        @my_ratings << ratng
+      end
+    end
+    #for r in params[:ratings] do
+    #  if r.value do
+    #    @my_ratings << r.key
+    #  end
+    #end
+    #@movies = Movie.all.order(session[:prev_sort])
+    @movies = Movie.where("rating in (?)",@my_ratings).order(session[:prev_sort])
 
   end
 
@@ -30,10 +43,7 @@ class MoviesController < ApplicationController
   end
 
   def create
-    #if user = User.authenticate(params[:username],params[:password])
-    #  session[:current_user_id] = user.id
-    #  redirect_to root_url
-    #end
+
     @movie = Movie.create!(movie_params)
     flash[:notice] = "#{@movie.title} was successfully created."
     redirect_to movies_path #+session[:sort]
