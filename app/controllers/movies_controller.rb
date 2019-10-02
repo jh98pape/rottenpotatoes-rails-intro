@@ -28,6 +28,14 @@ class MoviesController < ApplicationController
         @my_ratings << ratng
       end
     end
+    #puts session[:prev_sort]
+    if session[:prev_sort] == "title"
+      @title_header = 'hilite'
+    end
+    if session[:prev_sort] == "release_date"
+      @release_date_header = 'hilite'
+    end
+
     #for r in params[:ratings] do
     #  if r.value do
     #    @my_ratings << r.key
