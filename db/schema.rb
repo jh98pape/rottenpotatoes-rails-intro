@@ -23,3 +23,4 @@ ActiveRecord::Schema.define(version: 20150809022253) do
   end
 
 end
+https://docs.google.com/forms/d/e/1FAIpQLSegkQAhr0FAoRtPURSUlc4-0pBCxkidzPL9PMznSUibCAA8YA/viewform?usp=sf_link
